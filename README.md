@@ -13,6 +13,7 @@ We mask and encrypt the VCO password and save to the Splunk Password DB. We encr
 
 # Author
 Dwayne Sinclair / djs 06/19 - 01/20 / VMware
+
 Roger Huang 2020/11 / SST - 1.support opreator event 2.support Orchestrator 4.X
 
 # With thanks to:
