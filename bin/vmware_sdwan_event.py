@@ -204,8 +204,7 @@ class MyScript(Script):
 		lastCookieTime = state_store.get_state(inputNameS+"_Velo_cookie_time") or str(defaultTime)	
 		lastCookieTime_obj = datetime.strptime(lastCookieTime, '%Y-%m-%d %H:%M:%S.%f') 
 		
-		# Roger 2020/11/21
-		# check whatever cookie has been stored.
+		
 		veloCookieTime = state_store.get_state(inputNameS+"_Velo_cookie_time") 		
 
 		# djs 01/20
@@ -214,11 +213,14 @@ class MyScript(Script):
 		clearCookie = self.get_password(session_key, inputNameS+"_Velo_cookie")
 		ew.log('INFO', "[velocloud]" + "Cookie read from Password DB for: " + inputNameS)
 		cookie = { 'velocloud.session' : clearCookie }
+		# ew.log('INFO', "[velocloud]" + "Cookie: " + str(cookie['velocloud.session']))
 
 		# djs 12/19
 		# If last cookie time is beyond cookie refresh interval or 0, we need to 
 		# auth for a new cookie. 
-		if  (veloCookieTime is None) or (lastCookieTime_obj < (datetime.utcnow() - timedelta(hours=crefresh))) or crefresh == 0:
+		# Roger 2020/11/21
+		# check whatever cookie has been stored.
+		if  (cookie['velocloud.session'] is None) or (lastCookieTime_obj < (datetime.utcnow() - timedelta(hours=crefresh))) or crefresh == 0:
 			ew.log('INFO', "[velocloud]" + "Cookie required for: " + inputNameS)
 
 			# djs 12/19
@@ -302,7 +304,7 @@ class MyScript(Script):
 					
 			# djs 01/20
 			# Debugging only.
-			# ew.log('INFO', "[velocloud]" + inputNameS + "Response from VCO: " + respE.text)
+			ew.log('INFO', "[velocloud]" + inputNameS + "Response from VCO: " + respE.text)
 
 			# djs 12/19
 			# The data response from the velocloud api call is in resp.text
